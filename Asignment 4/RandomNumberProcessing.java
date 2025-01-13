@@ -3,30 +3,27 @@ import java.util.*;
 
 public class RandomNumberProcessing {
 
-    // Constants for random number generation
+   
     private static final int MIN = 1;
     private static final int MAX = 10000;
     private static final int NUM_COUNT = 1000;
     private static final String FILE_NAME = "random_numbers.txt";
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        // Step a: Generate random numbers and store in a file
+        
         generateRandomNumbersToFile();
 
-        // Step b: Read numbers from file and store them in an array
+       
         int[] numbers = readNumbersFromFile();
 
-        // Step c: Find minimum using multithreading
         long startTimeThreads = System.nanoTime();
         int minWithThreads = findMinimumWithThreads(numbers);
         long endTimeThreads = System.nanoTime();
 
-        // Step d: Find minimum using main thread
         long startTimeMain = System.nanoTime();
         int minWithoutThreads = findMinimumWithoutThreads(numbers);
         long endTimeMain = System.nanoTime();
 
-        // Output results
         System.out.println("Minimum value using threads: " + minWithThreads);
         System.out.println("Minimum value without threads: " + minWithoutThreads);
 
@@ -34,7 +31,7 @@ public class RandomNumberProcessing {
         System.out.println("Time taken without threads: " + (endTimeMain - startTimeMain) + " ns");
     }
 
-    // Method to generate random numbers and store them in a file
+    
     private static void generateRandomNumbersToFile() throws IOException {
         try (Writer writer = new FileWriter(FILE_NAME)) {
             Random random = new Random();
@@ -45,7 +42,7 @@ public class RandomNumberProcessing {
         }
     }
 
-    // Method to read numbers from file into an array
+
     private static int[] readNumbersFromFile() throws IOException {
         int[] numbers = new int[NUM_COUNT];
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
@@ -58,7 +55,7 @@ public class RandomNumberProcessing {
         return numbers;
     }
 
-    // Method to find the minimum using multithreading
+
     private static int findMinimumWithThreads(int[] numbers) throws InterruptedException {
         int threadCount = 5;
         int chunkSize = numbers.length / threadCount;
@@ -79,7 +76,7 @@ public class RandomNumberProcessing {
         return globalMin;
     }
 
-    // Method to find the minimum without multithreading
+
     private static int findMinimumWithoutThreads(int[] numbers) {
         int min = Integer.MAX_VALUE;
         for (int num : numbers) {
@@ -88,7 +85,6 @@ public class RandomNumberProcessing {
         return min;
     }
 
-    // Thread class for finding minimum in a chunk of the array
     private static class MinFinderThread extends Thread {
         private final int[] numbers;
         private final int start;
